@@ -1,0 +1,106 @@
+/* ✅ 全体の基本スタイル */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 36px; /* ✅ タイトルのフォントサイズを大きく */
+    font-weight: bold;
+}
+
+.date-display {
+    font-size: 28px; /* ✅ 更新日時のフォントサイズを大きく */
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.update-time {
+    font-size: 24px; /* ✅ 更新時刻のフォントサイズを大きく */
+    color: #666;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px; /* ✅ カードの幅を広く調整 */
+    min-height: 120px; /* ✅ 高さを確保して余白を確保 */
+    text-align: center;
+    font-size: 24px; /* ✅ カード全体のフォントサイズを大きく */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card h3 {
+    margin: 5px 0;
+    color: #444;
+    font-size: 28px; /* ✅ 項目タイトルのフォントサイズを大きく */
+    font-weight: bold;
+    white-space: nowrap;  /* ✅ 1行で表示するように設定 */
+    overflow: hidden;     /* ✅ テキストのはみ出しを防止 */
+    text-overflow: ellipsis; /* ✅ テキストが長い場合は省略記号で表示 */
+}
+
+.card strong {
+    font-size: 32px; /* ✅ 数値データのフォントサイズを大きく */
+    color: #000;
+    font-weight: bold;
+}
+
+/* ✅ グラフエリアのレイアウト */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 10px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* ✅ グラフのスタイル調整 */
+canvas {
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    height: 350px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-size: 24px !important; /* ✅ グラフ内フォントサイズを大きく */
+}
+
+@media (max-width: 1024px) {
+    .charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    canvas {
+        height: 300px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    canvas {
+        height: 250px !important;
+    }
+}
