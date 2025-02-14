@@ -10,6 +10,13 @@
 <body>
 
     <h1>戸畑共立病院ダッシュボード</h1>
+    
+    <!-- ✅ 追加: 理事長のことば & 経営戦略室の戦略 -->
+    <div class="top-dashboard">
+        <div class="message-card" id="president-message"><h3>理事長のことば</h3><p>読み込み中...</p></div>
+        <div class="message-card" id="strategy-message"><h3>経営戦略室の戦略</h3><p>読み込み中...</p></div>
+    </div>
+
     <div class="date-display" id="latest-date">日付: -- <span class="update-time" id="update-time">更新時刻: --:--</span></div>
 
     <div class="dashboard">
@@ -34,22 +41,6 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        document.getElementById('surgery-register-card').addEventListener('click', function() {
-            window.open('https://docs.google.com/spreadsheets/d/1CHU8Cgxgg5IvL3nB6ackAdqxe7-CNkmWDvtYE-keuXI/edit', '_blank');
-        });
-
-        document.getElementById('duty-management-card').addEventListener('click', function() {
-            window.open('https://docs.google.com/spreadsheets/d/1EX0t4wpSJZkEkhZ38PUGIyZVMOeGOTNdy2OI3rb_CTc/edit', '_blank');
-        });
-
-        document.getElementById('covid-status-card').addEventListener('click', function() {
-            window.open('https://docs.google.com/spreadsheets/d/1pgLCwJPxPpGO_-ro_J78QYqLzjrGHgTBKHL3ngybBbY/edit?gid=0#gid=0'); // ここに「新型コロナ感染状況」のスプレッドシートURLを入力
-        });
-
-        // グラフの再表示
-        fetchData();
-    </script>
 
 </body>
 </html>
