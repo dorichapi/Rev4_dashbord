@@ -2,8 +2,8 @@
 const apiUrl = "https://script.google.com/macros/s/AKfycbzFNOekouxWlJ3g_q6Fg3ZXTX8udctKQSBKAwkupswvDaT5GJAF2dc2t1mDMdT2jA9q/exec";
 
 // ✅ 理事長のことば・経営戦略室の戦略のスプレッドシートURL
-const presidentSheetUrl = "https://docs.google.com/spreadsheets/d/1Ka4nZ1hoKhPIbZf8IdAuErfhEfGMnyi6EzEYMalJNkM/gviz/tq?tqx=out:json";
-const strategySheetUrl = "https://docs.google.com/spreadsheets/d/1ONAQXCxwSMUjyoUAZ6Gg5JNu_jEGPu92l7L01RSSyko/gviz/tq?tqx=out:json";
+const presidentSheetUrl = "https://docs.google.com/spreadsheets/d/1Ka4nZ1hoKhPIbZf8IdAuErfhEfGMnyi6EzEYMalJNkM/edit?gid=0#gid=0";
+const strategySheetUrl = "https://docs.google.com/spreadsheets/d/1ONAQXCxwSMUjyoUAZ6Gg5JNu_jEGPu92l7L01RSSyko/edit?gid=0#gid=0";
 
 // ✅ スプレッドシートからデータを取得
 async function fetchSheetData(sheetUrl, elementId) {
