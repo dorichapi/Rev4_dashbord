@@ -22,45 +22,50 @@ async function fetchSheetData(sheetUrl, elementId) {
 }
 
 // ✅ データ取得 & グラフ表示
-async function fetchData() {
+async function fetchDashboardData() {
     try {
-        const response = await fetch(apiUrl);
-        const result = await response.json();
-        const latestData = result.data[result.data.length - 1];
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzMSwzKY50_gQYf1i1uG0DE-NZZVC9fkVtPnwVKaY64QXPHNGw4exHntzuLv-qXmQnc/exec');
+        if (!response.ok) throw new Error(`ネットワークエラー: ${response.status}`);
 
-        // ✅ 日付とスプレッドシートの更新時刻を表示
-        const dateElement = document.getElementById("latest-date");
+        const data = await response.json();
+        console.log('取得したデータ:', data);  // デバッグ用
 
-        // ✅ 日付が存在しない場合のフォールバック処理
-        const formattedDate = latestData["日付"] ? formatDate(latestData["日付"]) : "日付不明";
-        const formattedTime = result.lastEditTime ? formatTime(result.lastEditTime) : "--:--";
+        // データの表示
+        document.getElementById('date').textContent = data[0][1] || '--';
+        document.getElementById('update-time').textContent = data[0][2] || '--:--';
+        document.getElementById('bed-occupancy-value').textContent = data[1][1] ? data[1][1] + '%' : 'データ未取得';
+        document.getElementById('ambulance-arrivals-value').textContent = data[2][1] ? data[2][1] + '台' : 'データ未取得';
+        document.getElementById('inpatients-value').textContent = data[3][1] ? data[3][1] + '人' : 'データ未取得';
+        document.getElementById('discharges-value').textContent = data[4][1] ? data[4][1] + '人' : 'データ未取得';
+        document.getElementById('general-ward-value').textContent = data[5][1] ? data[5][1] + '/218 床' : 'データ未取得';
+        document.getElementById('icu-value').textContent = data[6][1] ? data[6][1] + '/16 床' : 'データ未取得';
 
-        dateElement.innerHTML = `${formattedDate} <span class="update-time">更新時刻：${formattedTime}</span>`;
-        dateElement.style.fontSize = "32px"; // ✅ フォントサイズを大きく
+        // 追加した2つのカードの処理を明示的にスプレッドシートから読み込まないようにする
+        document.getElementById('custom-card-1').textContent = 'カスタムカード1: 固定データ';
+        document.getElementById('custom-card-2').textContent = 'カスタムカード2: 固定データ';
 
-        // ✅ データの表示
-        document.querySelectorAll(".dashboard .card").forEach(card => {
-            card.style.fontSize = "28px";
+        // グラフ描画
+        const chartConfigs = [
+            { id: 'bedChart', label: '病床利用率 (%)', data: { labels: data[1].slice(2), values: data[1].slice(2) } },
+            { id: 'ambulanceChart', label: '救急車搬入数', data: { labels: data[2].slice(2), values: data[2].slice(2) } },
+            { id: 'inpatientsChart', label: '入院患者数', data: { labels: data[3].slice(2), values: data[3].slice(2) } },
+            { id: 'dischargesChart', label: '退院予定数', data: { labels: data[4].slice(2), values: data[4].slice(2) } },
+            { id: 'generalWardChart', label: '一般病棟在院数', data: { labels: data[5].slice(2), values: data[5].slice(2) } },
+            { id: 'icuChart', label: '集中治療室在院数', data: { labels: data[6].slice(2), values: data[6].slice(2) } }
+        ];
+
+        chartConfigs.forEach(config => {
+            if (config.data && Array.isArray(config.data.labels) && Array.isArray(config.data.values)) {
+                createChart(config.id, config.label, config.data);
+            } else {
+                console.warn(`${config.label} のデータが不完全です。仮データを表示します。`);
+                createChart(config.id, config.label, { labels: ['-', '-', '-', '-', '-', '-', '-'], values: [0, 0, 0, 0, 0, 0, 0] });
+            }
         });
 
-        document.querySelector(".dashboard .card:nth-child(1) strong").innerText = `${(latestData["病床利用率 (%)"] * 100).toFixed(1)}%`;
-        document.querySelector(".dashboard .card:nth-child(2) strong").innerText = `${latestData["救急車搬入数"]}台`;
-        document.querySelector(".dashboard .card:nth-child(3) strong").innerText = `${latestData["入院患者数"]}人`;
-        document.querySelector(".dashboard .card:nth-child(4) strong").innerText = `${latestData["退院予定数"]}人`;
-        document.querySelector(".dashboard .card:nth-child(5) strong").innerText = `${latestData["一般病棟在院数"]}/202 床`;
-        document.querySelector(".dashboard .card:nth-child(6) strong").innerText = `${latestData["集中治療室在院数"]}/16 床`;
-
-        // ✅ グラフ描画
-        const labels = result.data.map(item => formatDateForChart(item["日付"]));
-        createChart("bedChart", "病床利用率 (%)", labels, result.data.map(item => item["病床利用率 (%)"] * 100), "blue", "％", 110);
-        createChart("ambulanceChart", "救急車搬入数", labels, result.data.map(item => item["救急車搬入数"]), "red", "台");
-        createChart("inpatientsChart", "入院患者数", labels, result.data.map(item => item["入院患者数"]), "green", "人");
-        createChart("dischargesChart", "退院予定数", labels, result.data.map(item => item["退院予定数"]), "orange", "人");
-        createChart("generalWardChart", "一般病棟在院数", labels, result.data.map(item => item["一般病棟在院数"]), "purple", "床");
-        createChart("icuChart", "集中治療室在院数", labels, result.data.map(item => item["集中治療室在院数"]), "teal", "床");
-
     } catch (error) {
-        console.error("❌ データ取得エラー:", error);
+        console.error('データ取得エラー:', error);
+        alert('ダッシュボードデータの取得に失敗しました。URLまたはネットワーク接続を確認してください。');
     }
 }
 
