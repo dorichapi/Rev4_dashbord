@@ -21,6 +21,7 @@
         <div class="card"><h3>集中治療室在院数</h3><strong>--/16 床</strong></div>
         <div class="card" id="surgery-register-card"><h3>手術台帳</h3><strong>クリックして表示</strong></div>
         <div class="card" id="duty-management-card"><h3>当直管理表</h3><strong>クリックして表示</strong></div>
+        <div class="card" id="covid-status-card"><h3>新型コロナ感染状況</h3><strong>クリックして表示</strong></div>
     </div>
 
     <div class="charts-grid">
@@ -39,7 +40,11 @@
         });
 
         document.getElementById('duty-management-card').addEventListener('click', function() {
-            window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vTfU1BN4pPg9rY9INF2Kea_OIq1Bya875QFvAmi87uRGYw1t3pH69Lx0msXIbbLtZ0XZqYMtJYsrIrR/pubhtml?gid=0&single=true'); // ここに「当直管理表」のURLを入力
+            window.open('https://docs.google.com/spreadsheets/d/1EX0t4wpSJZkEkhZ38PUGIyZVMOeGOTNdy2OI3rb_CTc/edit', '_blank');
+        });
+
+        document.getElementById('covid-status-card').addEventListener('click', function() {
+            window.open('https://docs.google.com/spreadsheets/d/1pgLCwJPxPpGO_-ro_J78QYqLzjrGHgTBKHL3ngybBbY/edit?gid=0#gid=0'); // ここに「新型コロナ感染状況」のスプレッドシートURLを入力
         });
 
         // グラフの再表示
