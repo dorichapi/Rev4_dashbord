@@ -51,7 +51,7 @@ document.getElementById('surgery-register-card').addEventListener('click', funct
 
 // ✅ 当直管理表を開くクリックイベント（新規追加）
 document.getElementById('duty-management-card').addEventListener('click', function() {
-    window.open('https://docs.google.com/spreadsheets/d/1EX0t4wpSJZkEkhZ38PUGIyZVMOeGOTNdy2OI3rb_CTc/edit?hl=ja&gid=0#gid=0', '_blank'); // ← ここに「当直管理表」のスプレッドシートURLを入れる
+    window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vTfU1BN4pPg9rY9INF2Kea_OIq1Bya875QFvAmi87uRGYw1t3pH69Lx0msXIbbLtZ0XZqYMtJYsrIrR/pubhtml?gid=0&single=true'); // ← ここに「当直管理表」のスプレッドシートURLを入れる
 });
 
 // ✅ グラフ作成関数
