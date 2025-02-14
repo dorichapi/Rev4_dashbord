@@ -1,24 +1,21 @@
 // ✅ Google Apps ScriptのURLをここに貼り付け
 const apiUrl = "https://script.google.com/macros/s/AKfycbzFNOekouxWlJ3g_q6Fg3ZXTX8udctKQSBKAwkupswvDaT5GJAF2dc2t1mDMdT2jA9q/exec";
 
-// ✅ 理事長のことば・経営戦略室の戦略のスプレッドシートURL
-const presidentSheetUrl = "https://docs.google.com/spreadsheets/d/1Ka4nZ1hoKhPIbZf8IdAuErfhEfGMnyi6EzEYMalJNkM/gviz/tq?tqx=out:json&gid=0";
-const strategySheetUrl = "https://docs.google.com/spreadsheets/d/1ONAQXCxwSMUjyoUAZ6Gg5JNu_jEGPu92l7L01RSSyko/gviz/tq?tqx=out:json&gid=0";
+// ✅ 理事長のことば・経営戦略室の戦略のスプレッドシートURL（修正）
+const presidentSheetUrl = "https://sheets.googleapis.com/v4/spreadsheets/1Ka4nZ1hoKhPIbZf8IdAuErfhEfGMnyi6EzEYMalJNkM/values/A1?alt=json";
+const strategySheetUrl = "https://sheets.googleapis.com/v4/spreadsheets/1ONAQXCxwSMUjyoUAZ6Gg5JNu_jEGPu92l7L01RSSyko/values/A1?alt=json";
 
-// ✅ スプレッドシートからデータを取得
+// ✅ スプレッドシートからデータを取得（修正）
 async function fetchSheetData(sheetUrl, elementId) {
     try {
         const response = await fetch(sheetUrl);
-        let text = await response.text();
+        if (!response.ok) throw new Error(`HTTPエラー: ${response.status}`);
 
-        // ✅ Google Sheetsのレスポンスが正しいJSON形式かチェック
-        if (!text.startsWith("/*O_o*/")) {
-            throw new Error("Google Sheetsからのレスポンスが不正な形式です");
-        }
+        const json = await response.json();
+        console.log(`取得したデータ (${elementId}):`, json); // デバッグ用
 
-        text = text.substring(47, text.length - 2); // JSONP形式を修正
-        const json = JSON.parse(text);
-        const message = json.table.rows[0]?.c[0]?.v || "情報がありません"; // セル A1 の値
+        // ✅ Google Sheets のデータ構造に適応
+        const message = json.values ? json.values[0][0] : "情報がありません";
 
         document.getElementById(elementId).querySelector("p").innerText = message;
     } catch (error) {
