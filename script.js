@@ -56,7 +56,7 @@ document.getElementById('duty-management-card').addEventListener('click', functi
 
 // ✅ 新型コロナ感染状況を開くクリックイベント（新規追加）
 document.getElementById('covid-status-card').addEventListener('click', function() {
-    window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vTiZN3ZKtEECxaYZ8MLwbNZGjbWA-BQpFKRrZLjExPZdJWODnF5g-ByCdH4TbgYNr0ABnHSor5qISfp/pubhtml?gid=0&single=true'); // ← ここに「新型コロナ感染状況」のスプレッドシートURLを入力
+    window.open('https://docs.google.com/spreadsheets/d/1pgLCwJPxPpGO_-ro_J78QYqLzjrGHgTBKHL3ngybBbY/edit?gid=0#gid=0'); // ← ここに「新型コロナ感染状況」のスプレッドシートURLを入力
 });
 
 // ✅ グラフ作成関数
