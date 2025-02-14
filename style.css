@@ -14,7 +14,7 @@ h1 {
 }
 
 .date-display {
-    font-size: 28px; /* ✅ 更新日時のフォントサイズを大きく */
+    font-size: 28px;
     margin: 10px 0;
     font-weight: bold;
 }
@@ -82,6 +82,15 @@ h1 {
 
 #duty-management-card:hover {
     background-color: #B2E7B6; /* ホバー時は少し濃い緑 */
+}
+
+/* ✅ 新型コロナ感染状況カード（薄い青） */
+#covid-status-card {
+    background-color: #D0E7FF; /* 薄い青 */
+}
+
+#covid-status-card:hover {
+    background-color: #A9D0F5; /* ホバー時は少し濃い青 */
 }
 
 /* ✅ グラフエリアのレイアウト */
